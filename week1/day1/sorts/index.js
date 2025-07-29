@@ -15,7 +15,7 @@ function bubbleSort(arr) {
   return arr;
 }
 
-function QSort(arr) {
+function qSort(arr) {
   if (arr.length <= 1) {
     return arr;
   }
@@ -32,30 +32,26 @@ function QSort(arr) {
     }
   }
 
-  return [...QSort(left), median, ...QSort(right)];
+  return [...qSort(left), median, ...qSort(right)];
+}
+
+function measureTime(sortFunc, arr) {
+  const start = performance.now();
+  sortFunc([...arr]);
+  return performance.now() - start;
 }
 
 const arrSizes = [10, 30, 70];
+const testArrays = arrSizes.map((size) => arrGenerator(size));
 
-console.log(
-  "==========================BubbleSort===================================="
-);
-
-arrSizes.forEach((size) => {
-  const arr = arrGenerator(size);
-  const startTime = performance.now();
-  const resultBubble = bubbleSort(arr);
-  const endTime = performance.now();
-  console.log(resultBubble, `Size ${size}, `, `Time ${endTime - startTime}`);
+console.log("=========BubbleSort========");
+testArrays.forEach((arr, i) => {
+  const time = measureTime(bubbleSort, arr);
+  console.log(`Size ${arrSizes[i]}, Time ${time.toFixed(3)}`);
 });
-console.log(
-  "==========================QSort===================================="
-);
 
-arrSizes.forEach((size) => {
-  const arr = arrGenerator(size);
-  const startTime2 = performance.now();
-  const resultQSort = QSort(arr);
-  const endTime2 = performance.now();
-  console.log(resultQSort, `Size ${size}, `, `Time ${endTime2 - startTime2}`);
+console.log("=========QSort=========");
+testArrays.forEach((arr, i) => {
+  const time = measureTime(qSort, arr);
+  console.log(`Size ${arrSizes[i]}, Time ${time.toFixed(3)}`);
 });
