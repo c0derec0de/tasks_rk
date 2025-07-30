@@ -3,19 +3,29 @@
 import arrGenerator from "./arrGenerator.js";
 
 function bubbleSort(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        const n = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = n;
+  if (!Array.isArray(arr)) {
+    throw new TypeError("Функция принимает только массивы");
+  }
+
+  const result = [...arr];
+
+  for (let i = 0; i < result.length; i++) {
+    for (let j = 0; j < result.length - i - 1; j++) {
+      if (result[j] > result[j + 1]) {
+        const n = result[j];
+        result[j] = result[j + 1];
+        result[j + 1] = n;
       }
     }
   }
-  return arr;
+  return result;
 }
 
 function qSort(arr) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("Функция принимает только массивы");
+  }
+
   if (arr.length <= 1) {
     return arr;
   }
