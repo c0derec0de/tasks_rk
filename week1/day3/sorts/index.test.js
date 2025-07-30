@@ -31,7 +31,13 @@ const testMocks = [
     mock: [5, 5, 5],
     result: [5, 5, 5],
   },
+  {
+    title: "Сортирует строки",
+    mock: ["A", "D", "C"],
+    result: ["A", "C", "D"],
+  },
 ];
+
 // bubbleSort
 
 describe("bubbleSort", () => {
@@ -44,6 +50,10 @@ describe("bubbleSort", () => {
   test("Сравнение со встроенной сортировкой", () => {
     const arr = [3, 1, 4, 2];
     expect(bubbleSort(arr)).toEqual([...arr].sort((a, b) => a - b));
+  });
+
+  test("Выбрасывает ошибку при не массиве", () => {
+    expect(() => bubbleSort("text")).toThrow();
   });
 });
 
@@ -65,5 +75,9 @@ describe("qSort", () => {
     const arr = arrGenerator(1000);
     const sorted = [...arr].sort((a, b) => a - b);
     expect(qSort(arr)).toEqual(sorted);
+  });
+
+  test("Выбрасывает ошибку при не массиве", () => {
+    expect(() => qSort("text")).toThrow();
   });
 });
