@@ -6,7 +6,7 @@ export default interface RegistrationFormData {
   acceptTerms: boolean;
 }
 
-type RegistrationFormDraft = Partial<RegistrationFormData>;
+export type RegistrationFormDraft = Partial<RegistrationFormData>;
 
 type RegistrationCredentials = Pick<RegistrationFormData, "email" | "password">;
 
