@@ -1,4 +1,4 @@
-export default interface RegistrationFormData {
+interface RegistrationFormData {
   email: string;
   password: string;
   confirmPassword: string;
@@ -6,8 +6,10 @@ export default interface RegistrationFormData {
   acceptTerms: boolean;
 }
 
-export type RegistrationFormDraft = Partial<RegistrationFormData>;
+export type RegistrationFormDraft = Partial<RegistrationFormData>; // опциональные поля
 
 type RegistrationCredentials = Pick<RegistrationFormData, "email" | "password">;
 
 type FormWithoutConfirmation = Omit<RegistrationFormData, "confirmPassword">;
+
+export type FormErrors = Partial<Record<keyof RegistrationFormData, string>>;
