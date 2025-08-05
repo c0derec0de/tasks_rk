@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from "react";
+
 interface RegistrationFormData {
   email: string;
   password: string;
@@ -13,3 +15,8 @@ type RegistrationCredentials = Pick<RegistrationFormData, "email" | "password">;
 type FormWithoutConfirmation = Omit<RegistrationFormData, "confirmPassword">;
 
 export type FormErrors = Partial<Record<keyof RegistrationFormData, string>>;
+
+export type FormFieldProps = PropsWithChildren & {
+  label: string;
+  error?: string;
+};

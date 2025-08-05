@@ -1,4 +1,5 @@
 import { useRegistration } from "./useRegistrationForm";
+import FormField from "./formField";
 
 const RegistrationForm = () => {
   const { formData, errors, handleChange, handleSubmit } = useRegistration();
@@ -12,62 +13,51 @@ const RegistrationForm = () => {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Введите email * </label>
+        <FormField label="Введите email * " error={errors.email}>
           <input
             type="email"
             name="email"
             onChange={handleChange}
             value={formData.email ?? ""}
-          ></input>
-          {errors.email && <div style={{ color: "red" }}>{errors.email}</div>}
-        </div>
-        <div>
-          <label>Введите пароль * </label>
+          />
+        </FormField>
+        <FormField label="Введите пароль * " error={errors.password}>
           <input
             type="password"
             name="password"
             onChange={handleChange}
             value={formData.password ?? ""}
-          ></input>
-          {errors.password && (
-            <div style={{ color: "red" }}>{errors.password}</div>
-          )}
-        </div>
-        <div>
-          <label>Подтвердите пароль * </label>
+          />
+        </FormField>
+        <FormField label="Подтвердите пароль * " error={errors.confirmPassword}>
           <input
             type="password"
             name="confirmPassword"
             onChange={handleChange}
             value={formData.confirmPassword ?? ""}
           ></input>
-          {errors.confirmPassword && (
-            <div style={{ color: "red" }}>{errors.confirmPassword}</div>
-          )}
-        </div>
-        <div>
-          <label>Введите возраст </label>
+        </FormField>
+
+        <FormField label="Введите возраст " error={errors.age}>
           <input
             type="number"
             name="age"
             onChange={handleChange}
             value={formData.age ?? ""}
           ></input>
-        </div>
-        <div>
-          <label>Согласие с правилами конфиденциальности * </label>
+        </FormField>
+        <FormField
+          label="Согласие с правилами конфиденциальности * "
+          error={errors.acceptTerms}
+        >
           <input
             type="checkbox"
             name="acceptTerms"
             checked={formData.acceptTerms || false}
             onChange={handleChange}
           />
-          {errors.acceptTerms && (
-            <div style={{ color: "red" }}>{errors.acceptTerms}</div>
-          )}
-        </div>
-        <button>Зарегестрироваться</button>
+        </FormField>
+        <button>Зарегистрироваться</button>
       </form>
     </div>
   );

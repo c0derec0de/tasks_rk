@@ -5,7 +5,6 @@ const initialState: RegistrationFormDraft = {
   email: "",
   password: "",
   confirmPassword: "",
-  age: undefined,
   acceptTerms: false,
 };
 
@@ -32,11 +31,11 @@ export const useRegistration = () => {
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type == "checkbox" ? checked : resultValue,
+      [name]: resultValue,
     }));
   };
 
-  const validation = () => {
+  const validateForm = () => {
     const newError: FormErrors = {};
     if (!formData.email) {
       newError.email = "Почта обязательна";
@@ -64,7 +63,7 @@ export const useRegistration = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (validation()) {
+    if (validateForm()) {
       setFormData(initialState);
       alert("Успешная регистрация");
     }
