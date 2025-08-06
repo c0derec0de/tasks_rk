@@ -1,6 +1,11 @@
-import { type FormFieldProps } from "./types";
+import type { PropsWithChildren } from "react";
 
-const FormField = ({ label, error, children }: FormFieldProps) => {
+export type FormFieldProps = PropsWithChildren & {
+  label: string;
+  error?: string;
+};
+
+export const FormField = ({ label, error, children }: FormFieldProps) => {
   return (
     <div>
       <label>{label}</label>
@@ -9,4 +14,3 @@ const FormField = ({ label, error, children }: FormFieldProps) => {
     </div>
   );
 };
-export default FormField;

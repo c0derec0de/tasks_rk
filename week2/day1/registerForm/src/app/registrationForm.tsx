@@ -1,7 +1,7 @@
 import { useRegistration } from "./useRegistrationForm";
-import FormField from "./formField";
+import { FormField } from "./formField";
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const { formData, errors, handleChange, handleSubmit } = useRegistration();
 
   return (
@@ -62,5 +62,3 @@ const RegistrationForm = () => {
     </div>
   );
 };
-
-export default RegistrationForm;
