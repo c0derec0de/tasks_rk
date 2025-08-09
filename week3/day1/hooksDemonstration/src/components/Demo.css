@@ -1,0 +1,15 @@
+.moved_place {
+  height: "350px";
+  padding: "10px";
+  margin-top: "10px";
+  background-color: aliceblue;
+}
+.moved-element {
+  width: "100px";
+  height: "100px";
+  transition: "all 0.2s ease-out";
+  color: "white";
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+}
