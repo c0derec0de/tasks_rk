@@ -58,7 +58,10 @@ export const Mounting = () => {
 
       <div className="container">
         <h3>Cleanup при Обновлении</h3>
-        <p> Этот счетчик запущен в useEffect и зависит от [updateId]</p>
+        <p>
+          {" "}
+          Этот счетчик запущен в useEffect и зависит от параметра [updateId]
+        </p>
         <p>
           Счетчик: <strong>{updateCounter}</strong>
         </p>
