@@ -8,7 +8,7 @@ export const Mounting = () => {
 
   // клинап при размонтировании
   useEffect(() => {
-    console.log("Компонент монтирован. Запуск интервала.");
+    console.log("Компонент 1 монтирован. Запуск счетчика.");
 
     const intervalId = setInterval(() => {
       setMountCounter((c) => c + 1);
@@ -16,7 +16,7 @@ export const Mounting = () => {
 
     return () => {
       console.log(
-        "%cКомпонент размонтирован. Cleanup после размонтирования.",
+        "%cКомпонент 1 размонтирован. Cleanup после размонтирования.",
         "color: red; font-weight: bold;"
       );
       clearInterval(intervalId);
@@ -25,7 +25,7 @@ export const Mounting = () => {
 
   // клинап при обновлении
   useEffect(() => {
-    console.log(`Запуск счетчика для ID: ${updateId}`);
+    console.log(`Компонент 2 монтирован. Запуск счетчика для ID: ${updateId}`);
 
     const intervalId = setInterval(() => {
       setUpdateCounter((c) => c + 1);
@@ -33,7 +33,7 @@ export const Mounting = () => {
 
     return () => {
       console.log(
-        `%cКомпонент размонтирован. Cleanup после обновления [updateId]`,
+        `%cКомпонент 2 размонтирован. Cleanup после обновления [updateId]`,
         "color: red; font-weight: bold;"
       );
       clearInterval(intervalId);
@@ -64,6 +64,9 @@ export const Mounting = () => {
         </p>
         <p>
           Счетчик: <strong>{updateCounter}</strong>
+        </p>
+        <p>
+          ID: <strong>{updateId}</strong>
         </p>
         <button onClick={handleRestart}>Начать заново</button>
       </div>
