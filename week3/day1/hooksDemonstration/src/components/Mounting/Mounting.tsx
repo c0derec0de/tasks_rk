@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Children } from "../Children/Children";
 
 export const Mounting = () => {
   const [mountCounter, setMountCounter] = useState(0);
@@ -6,9 +7,8 @@ export const Mounting = () => {
   const [updateId, setUpdateId] = useState(1);
   const [updateCounter, setUpdateCounter] = useState(0);
 
-  // клинап при размонтировании
   useEffect(() => {
-    console.log("Компонент 1 монтирован. Запуск счетчика.");
+    console.log("Компонент 1. Эффект без массива зависимостей.");
 
     const intervalId = setInterval(() => {
       setMountCounter((c) => c + 1);
@@ -16,7 +16,24 @@ export const Mounting = () => {
 
     return () => {
       console.log(
-        "%cКомпонент 1 размонтирован. Cleanup после размонтирования.",
+        "%c1 размонтирован. Cleanup после размонтирования.",
+        "color: red; font-weight: bold;"
+      );
+      clearInterval(intervalId);
+    };
+  });
+
+  // клинап при размонтировании
+  useEffect(() => {
+    console.log("Компонент 2 монтирован. Зависимость от пустого массива.");
+
+    const intervalId = setInterval(() => {
+      setMountCounter((c) => c + 1);
+    }, 1000);
+
+    return () => {
+      console.log(
+        "%cКомпонент 2 размонтирован. Cleanup после размонтирования.",
         "color: red; font-weight: bold;"
       );
       clearInterval(intervalId);
@@ -25,7 +42,9 @@ export const Mounting = () => {
 
   // клинап при обновлении
   useEffect(() => {
-    console.log(`Компонент 2 монтирован. Запуск счетчика для ID: ${updateId}`);
+    console.log(
+      `Компонент 3 монтирован. Зависимость от массива значений [updateId]`
+    );
 
     const intervalId = setInterval(() => {
       setUpdateCounter((c) => c + 1);
@@ -33,7 +52,7 @@ export const Mounting = () => {
 
     return () => {
       console.log(
-        `%cКомпонент 2 размонтирован. Cleanup после обновления [updateId]`,
+        `%cКомпонент 3 размонтирован. Cleanup после обновления [updateId]`,
         "color: red; font-weight: bold;"
       );
       clearInterval(intervalId);
@@ -47,6 +66,8 @@ export const Mounting = () => {
 
   return (
     <div>
+      <Children />
+      <hr />
       <div className="container">
         <h3>Cleanup при размонтировании</h3>
         <p>Этот счетчик запущен в useEffect с пустым [].</p>
