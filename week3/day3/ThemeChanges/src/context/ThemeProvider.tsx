@@ -9,9 +9,5 @@ type ThemeProviderProps = {
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>("dark");
   const value = { theme, setTheme };
-  return (
-    <ThemeContext.Provider value={value}>
-      {props.children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext value={value}>{props.children}</ThemeContext>;
 };

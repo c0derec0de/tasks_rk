@@ -9,12 +9,15 @@ function App() {
   const handleThemeChange = (e) => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+
+  console.log("Родитель сменил тему");
   return (
     <>
       <div className={theme === "light" ? "light-app" : "dark-app"}>
-        <p className="title">Click to change theme</p>
-        <Children />
-        <button onClick={handleThemeChange}>Click</button>
+        <div className="container">
+          <button onClick={handleThemeChange}>Click to change theme</button>
+          <Children />
+        </div>
       </div>
     </>
   );
