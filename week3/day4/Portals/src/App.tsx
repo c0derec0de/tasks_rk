@@ -6,11 +6,16 @@ import { Dropdown } from "./components/Dropdown/Dropdown";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [buttonRect, setButtonRect] = useState<DOMRect | undefined>();
 
-  const onMouseEnterHandler = () => {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipRect, setTooltipRect] = useState<DOMRect | undefined>();
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownRect, setDropdownRect] = useState<DOMRect | undefined>();
+
+  const onMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect(); //геометрические параметры кнопки
+    setTooltipRect(rect);
     setShowTooltip(true);
   };
 
@@ -19,8 +24,8 @@ function App() {
   };
 
   const toggleDropdown = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect(); //геометрические параметры кнопки
-    setButtonRect(rect);
+    const rect = e.currentTarget.getBoundingClientRect();
+    setDropdownRect(rect);
     setShowDropdown(!showDropdown);
   };
 
@@ -45,7 +50,11 @@ function App() {
           onMouseLeave={onMouseLeaveHandler}
         >
           <button className="tooltip-button">Увидеть тултип</button>
-          <Tooltip message="Hello world" showTooltip={showTooltip}></Tooltip>
+          <Tooltip
+            message="Hello world"
+            showTooltip={showTooltip}
+            buttonRect={tooltipRect}
+          ></Tooltip>
         </div>
         <div className="dropdown-wrapper">
           <button className="dropdown-button" onClick={toggleDropdown}>
@@ -54,7 +63,7 @@ function App() {
           <Dropdown
             elements={["Hello World!", "Hello", "World"]}
             isOpen={showDropdown}
-            buttonRect={buttonRect}
+            buttonRect={dropdownRect}
           />
         </div>
       </div>
