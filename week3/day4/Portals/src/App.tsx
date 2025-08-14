@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import { Modal } from "./components/Modal/Modal";
 import { Tooltip } from "./components/Tooltip/Tooltip";
+import { Dropdown } from "./components/Dropdown/Dropdown";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const onMouseEnterHandler = () => {
     setShowTooltip(true);
@@ -37,6 +39,18 @@ function App() {
         >
           <button className="tooltip-button">Увидеть тултип</button>
           <Tooltip message="Hello world" showTooltip={showTooltip}></Tooltip>
+        </div>
+        <div className="dropdown-wrapper">
+          <button
+            className="dropdown-button"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            Открыть выпадающий список
+          </button>
+          <Dropdown
+            elements={["Hello World!", "Hello", "World"]}
+            isOpen={showDropdown}
+          />
         </div>
       </div>
     </>
