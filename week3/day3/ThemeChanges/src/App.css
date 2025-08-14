@@ -1,0 +1,17 @@
+.light-app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: black;
+  min-height: 100vh;
+}
+
+.dark-app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: white;
+  min-height: 100vh;
+}
