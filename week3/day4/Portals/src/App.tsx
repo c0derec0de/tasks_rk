@@ -8,6 +8,7 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [buttonRect, setButtonRect] = useState<DOMRect | undefined>();
 
   const onMouseEnterHandler = () => {
     setShowTooltip(true);
@@ -15,6 +16,12 @@ function App() {
 
   const onMouseLeaveHandler = () => {
     setShowTooltip(false);
+  };
+
+  const toggleDropdown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect(); //геометрические параметры кнопки
+    setButtonRect(rect);
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -41,15 +48,13 @@ function App() {
           <Tooltip message="Hello world" showTooltip={showTooltip}></Tooltip>
         </div>
         <div className="dropdown-wrapper">
-          <button
-            className="dropdown-button"
-            onClick={() => setShowDropdown(!showDropdown)}
-          >
+          <button className="dropdown-button" onClick={toggleDropdown}>
             Открыть выпадающий список
           </button>
           <Dropdown
             elements={["Hello World!", "Hello", "World"]}
             isOpen={showDropdown}
+            buttonRect={buttonRect}
           />
         </div>
       </div>
