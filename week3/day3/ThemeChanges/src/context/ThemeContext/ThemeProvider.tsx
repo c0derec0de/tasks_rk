@@ -1,6 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { ThemeContext } from "./ThemeContext";
-import { type Theme } from "../types/types";
+import { type Theme } from "../../types/types";
 
 type ThemeProviderProps = {
   children: ReactNode;
@@ -8,6 +8,12 @@ type ThemeProviderProps = {
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>("dark");
-  const value = { theme, setTheme };
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme]
+  );
   return <ThemeContext value={value}>{props.children}</ThemeContext>;
 };

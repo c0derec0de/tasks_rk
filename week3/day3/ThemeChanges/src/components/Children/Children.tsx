@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import React from "react";
+import { useThemeContext } from "../../context/ThemeContext/useThemeContext";
 import "./Children.css";
-export const Children = () => {
-  const { theme } = useContext(ThemeContext);
+
+export const Children = React.memo(() => {
+  const { theme } = useThemeContext();
   console.log("Children сменил тему");
   return (
     <>
@@ -11,4 +12,4 @@ export const Children = () => {
       </div>
     </>
   );
-};
+});

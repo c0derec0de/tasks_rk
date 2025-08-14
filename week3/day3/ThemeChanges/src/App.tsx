@@ -1,13 +1,18 @@
-import { useContext } from "react";
 import "./App.css";
-import { ThemeContext } from "./context/ThemeContext";
+import { useThemeContext } from "./context/ThemeContext/useThemeContext";
 import { Children } from "./components/Children/Children";
+import { useState } from "react";
 
 function App() {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useThemeContext();
+  const [count, setCount] = useState<number>(0);
 
-  const handleThemeChange = (e) => {
+  const handleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleAddCount = () => {
+    setCount(count + 1);
   };
 
   console.log("Родитель сменил тему");
@@ -17,6 +22,10 @@ function App() {
         <div className="container">
           <button onClick={handleThemeChange}>Click to change theme</button>
           <Children />
+          <div style={{ marginTop: "10px" }}>
+            <button onClick={handleAddCount}>Click to add number</button>
+            <p>Number: {count}</p>
+          </div>
         </div>
       </div>
     </>
