@@ -1,0 +1,16 @@
+.main-container {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.tooltip-wrapper {
+  margin-bottom: 30px;
+}
