@@ -7,7 +7,7 @@ function App() {
     console.log("добавление");
     model.addPost({
       userId: 1,
-      id: 10000,
+      id: 1,
       title: "New Post",
       body: "New Post",
     });

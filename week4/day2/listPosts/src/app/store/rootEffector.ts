@@ -55,7 +55,9 @@ sample({
 export const model = {
   $posts,
   getPost,
+  getPostFx,
   addPost,
   deletePost,
   sendPostsToBackend,
+  sendPostsToBackendFx,
 };

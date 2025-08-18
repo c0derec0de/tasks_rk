@@ -9,6 +9,23 @@ const newPost: Post = {
   body: "Body",
 };
 
+const newPosts: Post[] = [
+  {
+    userId: 1,
+    id: 544,
+    title: "Title",
+    body: "Body",
+  },
+  {
+    userId: 1,
+    id: 545,
+    title: "Title2",
+    body: "Body2",
+  },
+];
+
+const ID = 2;
+
 test("should handle post add with scope", async () => {
   const scope = fork();
   const fn = jest.fn(); // функция следит за вызовами
@@ -27,4 +44,67 @@ test("should handle post add with scope", async () => {
   });
 
   expect(fn).toHaveBeenCalledTimes(1);
+});
+
+test("should handle post get with scope", async () => {
+  const scope = fork();
+  const fn = jest.fn();
+
+  const unwatch = createWatch({
+    unit: model.getPost,
+    fn,
+    scope,
+  });
+
+  await allSettled(model.getPost, {
+    scope,
+  });
+
+  expect(fn).toHaveBeenCalledTimes(1);
+});
+
+test("should handle post delete with scope", async () => {
+  const scope = fork();
+  const fn = jest.fn();
+
+  const unwatch = createWatch({
+    unit: model.deletePost,
+    fn,
+    scope,
+  });
+
+  await allSettled(model.deletePost, {
+    scope,
+    params: ID,
+  });
+
+  expect(fn).toHaveBeenCalledTimes(1);
+});
+
+test("getPostFx effect executes correctly", async () => {
+  const scope = fork({
+    handlers: [
+      //  [эффект, моковый обработчик] пар
+      [model.getPostFx, () => "add data"],
+    ],
+  });
+
+  const result = await allSettled(model.getPostFx, { scope });
+
+  expect(result.status).toBe("done");
+  expect(result.value).toBe("add data");
+});
+
+test("sendPostsToBackendFx effect executes correctly", async () => {
+  const scope = fork({
+    handlers: [[model.sendPostsToBackendFx, () => "post data"]],
+  });
+
+  const result = await allSettled(model.sendPostsToBackendFx, {
+    scope,
+    params: newPosts,
+  });
+
+  expect(result.status).toBe("done");
+  expect(result.value).toBe("post data");
 });
