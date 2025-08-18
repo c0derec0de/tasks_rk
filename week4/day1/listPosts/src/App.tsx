@@ -16,7 +16,7 @@ function App() {
     model.deletePost(2);
 
     console.log("отправка на сервер");
-    model.sendPost([
+    model.sendPostsToBackend([
       {
         userId: 1,
         id: 100000,

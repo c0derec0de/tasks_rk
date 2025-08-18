@@ -10,14 +10,15 @@ type Post = {
 const getPost = createEvent();
 const addPost = createEvent<Post>();
 const deletePost = createEvent<number>();
-const sendPost = createEvent<Post[]>();
+const sendPostsToBackend = createEvent<Post[]>();
 
 const getPostFx = createEffect(async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  if (!response.ok) throw new Error("Ошибка загрузки");
   return response.json();
 });
 
-const sendPostFx = createEffect(async (posts: Post[]) => {
+const sendPostsToBackendFx = createEffect(async (posts: Post[]) => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     body: JSON.stringify(posts),
@@ -25,26 +26,26 @@ const sendPostFx = createEffect(async (posts: Post[]) => {
       "Content-type": "application/json; charset=UTF-8",
     },
   });
+  if (!response.ok) throw new Error("Ошибка отправки");
   return response.json();
 });
 
-const $post = createStore<Post[]>([]);
+const $posts = createStore<Post[]>([]);
 
-$post.watch((posts) => {
+$posts.watch((posts) => {
   console.log(posts);
 });
 
-// добавление поста
-$post.on(addPost, (posts: Post[], addedPost: Post) => [...posts, addedPost]);
-
-// удаление поста по айди
-$post.on(deletePost, (posts: Post[], postId: number) =>
-  posts.filter((post) => post.id !== postId)
-);
+// добавление поста и удаление по айди
+$posts
+  .on(addPost, (posts: Post[], addedPost: Post) => [...posts, addedPost])
+  .on(deletePost, (posts: Post[], postId: number) =>
+    posts.filter((post) => post.id !== postId)
+  );
 
 sample({
-  clock: sendPost,
-  target: sendPostFx,
+  clock: sendPostsToBackend,
+  target: sendPostsToBackendFx,
 });
 
 sample({
@@ -54,13 +55,13 @@ sample({
 
 sample({
   clock: getPostFx.doneData,
-  target: $post,
+  target: $posts,
 });
 
 export const model = {
-  $post,
+  $posts,
   getPost,
   addPost,
   deletePost,
-  sendPost,
+  sendPostsToBackend,
 };
