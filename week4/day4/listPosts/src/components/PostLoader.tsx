@@ -1,15 +1,14 @@
 import { useList, useUnit } from "effector-react";
 import { postLoaderModelFactory } from "../app/factory/postLoaderModelFactory";
 import { useMemo } from "react";
-
 type ListProps = {
-  model: typeof postLoaderModelFactory;
+  model: ReturnType<typeof postLoaderModelFactory>;
 };
 
 export const ListLoader: React.FC<ListProps> = ({
-  model = postLoaderModelFactory,
+  model = postLoaderModelFactory("default"),
 }) => {
-  const units = useMemo(model, []);
+  const units = useMemo(() => model, []);
 
   const { getPost, deletePost } = useUnit(units);
 

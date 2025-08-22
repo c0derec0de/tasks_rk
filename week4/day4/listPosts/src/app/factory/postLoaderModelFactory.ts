@@ -1,11 +1,11 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { type Post } from "../../types/types";
 
-export const postLoaderModelFactory = () => {
+export const postLoaderModelFactory = (sid: string) => {
   const getPost = createEvent();
   const deletePost = createEvent<number>();
 
-  const $posts = createStore<Post[]>([]);
+  const $posts = createStore<Post[]>([], { sid: `${sid}/posts` });
 
   const getPostFx = createEffect(async () => {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -31,8 +31,8 @@ export const postLoaderModelFactory = () => {
   });
 
   return {
+    $posts,
     getPost,
     deletePost,
-    $posts,
   };
 };

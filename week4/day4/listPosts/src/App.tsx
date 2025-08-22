@@ -1,11 +1,11 @@
-import { ListLoader } from "./components/PostLoader";
 import { postLoaderModelFactory } from "./app/factory/postLoaderModelFactory";
+import { ListLoader } from "./components/PostLoader";
 
 function App() {
   return (
     <>
-      <ListLoader model={postLoaderModelFactory} />
-      <ListLoader model={postLoaderModelFactory} />
+      <ListLoader model={postLoaderModelFactory("aModel")} />
+      <ListLoader model={postLoaderModelFactory("bModel")} />
     </>
   );
 }
