@@ -1,11 +1,14 @@
 import { postLoaderModelFactory } from "./app/factory/postLoaderModelFactory";
 import { ListLoader } from "./components/PostLoader";
 
+const modelA = postLoaderModelFactory("modelA");
+const modelB = postLoaderModelFactory("modelB");
+
 function App() {
   return (
     <>
-      <ListLoader model={postLoaderModelFactory("aModel")} />
-      <ListLoader model={postLoaderModelFactory("bModel")} />
+      <ListLoader model={modelA} />
+      <ListLoader model={modelB} />
     </>
   );
 }
