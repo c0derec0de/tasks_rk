@@ -1,22 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { ChildList } from "./ChildList";
 
+const config: MutationObserverInit = {
+  attributes: true,
+  childList: true,
+  subtree: true,
+};
+
 export const Parent = () => {
-  const [mounting, setMounting] = useState(true);
-  const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !mounting) return;
-
-    const config = {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    };
+    if (!containerRef.current || !isVisible) return;
 
     const callback = (mutationList: MutationRecord[]) => {
       for (const mutation of mutationList) {
-        // следит за изменениями потомка
         if (mutation.type === "childList") {
           mutation.addedNodes.forEach((node) => {
             console.log("Добавлен элемент:", node);
@@ -30,14 +29,14 @@ export const Parent = () => {
     observer.observe(containerRef.current, config);
 
     return () => observer.disconnect();
-  }, [mounting]);
+  }, [isVisible]);
 
   return (
     <div ref={containerRef}>
-      <button onClick={() => setMounting(!mounting)}>
-        {mounting ? "Скрыть" : "Показать"} список
+      <button onClick={() => setIsVisible(!isVisible)}>
+        {isVisible ? "Скрыть" : "Показать"} список
       </button>
-      {mounting && <ChildList />}
+      {isVisible && <ChildList />}
     </div>
   );
 };

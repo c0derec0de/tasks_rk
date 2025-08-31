@@ -1,15 +1,15 @@
 import { useSize } from "./hooks/useSize";
 
+const getContent = (width: number) => {
+  return width < 300
+    ? { backgroundColor: "red", text: "маленькое" }
+    : width < 600
+    ? { backgroundColor: "yellow", text: "среднее" }
+    : { backgroundColor: "green", text: "большое" };
+};
+
 const App = () => {
   const [size, ref] = useSize<HTMLDivElement>();
-
-  const getContent = (width: number) => {
-    return width < 300
-      ? { backgroundColor: "red", text: "маленькое" }
-      : width < 600
-      ? { backgroundColor: "yellow", text: "среднее" }
-      : { backgroundColor: "green", text: "большое" };
-  };
 
   const { backgroundColor, text } = getContent(size.width);
 
