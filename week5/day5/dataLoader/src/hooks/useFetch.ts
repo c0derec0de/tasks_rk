@@ -13,13 +13,11 @@ export const useFetch = <T>(url: string): UseFetchResult<T> => {
 
   useEffect(() => {
     const controller = new AbortController();
-
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
           signal: controller.signal,
         });
-
         const result = await response.json();
         setData(result);
       } catch (err) {
