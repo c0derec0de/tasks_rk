@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/uliana_dev/tasks_rk/week7/day1/firstapp/pages/404.tsx"],"sourcesContent":["export default function NotFound() {\r\n  return (\r\n    <div className=\"flex flex-col gap-4 items-center justify-items-center\">\r\n      <a>Кастомная 404 ошибка</a>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,qKAAC;QAAI,WAAU;kBACb,cAAA,qKAAC;sBAAE;;;;;;;;;;;AAGT","debugId":null}}]
+}

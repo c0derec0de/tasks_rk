@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/uliana_dev/tasks_rk/week7/day1/firstapp/pages/home/info/about.tsx"],"sourcesContent":["import Link from \"next/link\";\r\n\r\nexport default function About() {\r\n  return (\r\n    <div className=\"flex flex-col gap-4 items-center justify-items-center\">\r\n      <a>Это страница home/info/about</a>\r\n      <Link href=\"/\" className=\"text-purple-600\">\r\n        Перейти на главную\r\n      </Link>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,qKAAC;QAAI,WAAU;;0BACb,qKAAC;0BAAE;;;;;;0BACH,qKAAC,gIAAI;gBAAC,MAAK;gBAAI,WAAU;0BAAkB;;;;;;;;;;;;AAKjD","debugId":null}}]
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/uliana_dev/tasks_rk/week7/day1/firstapp/pages/404.tsx"],"sourcesContent":["import Image from \"next/image\";\r\n\r\nexport default function NotFound() {\r\n  return (\r\n    <div className=\"flex flex-col gap-4 items-center justify-items-center\">\r\n      <a>Кастомная 404 ошибка</a>\r\n      <Image\r\n        src=\"/404error.jpg\"\r\n        alt={\"404 error\"}\r\n        width={500}\r\n        height={300}\r\n      ></Image>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,qKAAC;QAAI,WAAU;;0BACb,qKAAC;0BAAE;;;;;;0BACH,qKAAC,iIAAK;gBACJ,KAAI;gBACJ,KAAK;gBACL,OAAO;gBACP,QAAQ;;;;;;;;;;;;AAIhB","debugId":null}}]
+}
