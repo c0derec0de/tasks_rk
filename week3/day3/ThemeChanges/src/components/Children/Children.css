@@ -1,0 +1,15 @@
+.light-child {
+  background-color: rgb(191, 165, 255);
+  padding: 20px;
+  margin-top: 20px;
+  width: 50px;
+  height: 100px;
+}
+
+.dark-child {
+  background-color: rgb(31, 5, 103);
+  margin-top: 20px;
+  padding: 20px;
+  width: 50px;
+  height: 100px;
+}
