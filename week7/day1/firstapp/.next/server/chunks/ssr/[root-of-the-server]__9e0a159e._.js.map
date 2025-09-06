@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/uliana_dev/tasks_rk/week7/day1/firstapp/pages/home/%5BuserId%5D.tsx"],"sourcesContent":["import Link from \"next/link\";\r\nimport { useRouter } from \"next/router\";\r\n\r\nexport default function UserID() {\r\n  const router = useRouter();\r\n  const { userId } = router.query;\r\n  console.log(router, router.query);\r\n  return (\r\n    <div className=\"flex flex-col items-center justify-items-center gap-4\">\r\n      <a>Это страница home/{userId} </a>\r\n      <Link href=\"/\" className=\"text-purple-600\">\r\n        Перейти на главную\r\n      </Link>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;AACA;;;;AAEe,SAAS;IACtB,MAAM,SAAS,IAAA,oIAAS;IACxB,MAAM,EAAE,MAAM,EAAE,GAAG,OAAO,KAAK;IAC/B,QAAQ,GAAG,CAAC,QAAQ,OAAO,KAAK;IAChC,qBACE,qKAAC;QAAI,WAAU;;0BACb,qKAAC;;oBAAE;oBAAmB;oBAAO;;;;;;;0BAC7B,qKAAC,gIAAI;gBAAC,MAAK;gBAAI,WAAU;0BAAkB;;;;;;;;;;;;AAKjD","debugId":null}}]
-}
