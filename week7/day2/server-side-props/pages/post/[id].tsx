@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
+import { useEffect, useLayoutEffect } from "react";
 
 type PostInfoProps = {
   post: {
@@ -11,6 +12,20 @@ type PostInfoProps = {
 };
 
 export default function PostInfo({ post }: PostInfoProps) {
+  // window не доступен на сервере поэтому так проверяю
+  console.log(
+    "Рендеринг компонента на сервере ",
+    typeof window === "undefined"
+  );
+
+  useLayoutEffect(() => {
+    console.log("useLoyoutEffect на клиенте");
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect на клиенте");
+  }, []);
+
   return (
     <>
       <div
@@ -21,8 +36,11 @@ export default function PostInfo({ post }: PostInfoProps) {
           flexDirection: "column",
         }}
       >
-        <Link href="/">Назад</Link>
+        <Link href="/" style={{ color: "blue" }}>
+          Назад
+        </Link>
         <a>{post.title}</a>
+        <a>{post.body}</a>
       </div>
     </>
   );
@@ -31,9 +49,38 @@ export default function PostInfo({ post }: PostInfoProps) {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.params || {};
+  try {
+    console.log("getServerSideProps выполняется на сервере");
 
-  if (!id) {
+    const { id } = context.params || {};
+
+    if (!id) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
+    const result = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${id}`
+    );
+
+    const post = await result.json();
+
+    if (!post || Object.keys(post).length === 0 || !post.id) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        post,
+      },
+    };
+  } catch {
     return {
       redirect: {
         destination: "/",
@@ -41,22 +88,4 @@ export const getServerSideProps = async (
       },
     };
   }
-
-  const result = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
-  );
-
-  if (!result.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const post = await result.json();
-
-  return {
-    props: {
-      post,
-    },
-  };
 };

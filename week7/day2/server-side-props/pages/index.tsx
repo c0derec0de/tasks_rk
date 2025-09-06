@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export default function Home() {
+  const postId = [1, 2, 3, 4];
   return (
     <>
       <div
@@ -8,7 +9,13 @@ export default function Home() {
           margin: 20,
         }}
       >
-        <Link href="/post/2">Перейти на пост с айди 2</Link>
+        <ul>
+          {postId.map((id) => (
+            <li key={id}>
+              <Link href={`/post/${id}`}>Перейти на пост с айди {id}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
