@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/uliana_dev/tasks_rk/week7/day1/firstapp/pages/home.tsx"],"sourcesContent":["import Link from \"next/link\";\r\n\r\nexport default function Home() {\r\n  return (\r\n    <div>\r\n      <a>Это home page</a>\r\n      <Link href=\"/\">Перейти на главную</Link>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,qKAAC;;0BACC,qKAAC;0BAAE;;;;;;0BACH,qKAAC,gIAAI;gBAAC,MAAK;0BAAI;;;;;;;;;;;;AAGrB","debugId":null}}]
+}
