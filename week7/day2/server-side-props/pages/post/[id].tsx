@@ -67,9 +67,15 @@ export const getServerSideProps = async (
       `https://jsonplaceholder.typicode.com/posts/${id}`
     );
 
+    if (!result.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
     const post = await result.json();
 
-    if (!post || Object.keys(post).length === 0 || !post.id) {
+    if (!post?.id) {
       return {
         notFound: true,
       };
