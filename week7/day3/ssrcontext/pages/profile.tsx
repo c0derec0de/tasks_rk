@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from "next";
-import { parseCookies } from "nookies";
 
 interface ProfileProps {
   authToken: string | null;
@@ -9,18 +8,18 @@ interface ProfileProps {
 
 export default function Profile({ authToken, userAgent, lang }: ProfileProps) {
   return (
-    <div>
-      <a>{authToken}</a>
-      <a>{userAgent}</a>
-      <a>{lang}</a>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <a>authToken: {authToken} </a>
+      <a>userAgent: {userAgent} </a>
+      <a>lang: {lang} </a>
     </div>
   );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-  const cookies = parseCookies({ req });
-  const authToken = cookies["auth_token"];
+
+  const authToken = req.cookies["auth_token"];
 
   if (!authToken) {
     return {

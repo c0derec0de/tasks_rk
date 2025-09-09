@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
+import { setCookie } from "@/shared/cookiesParser";
 
 type LoginProps = {
   redirectUri: string;
@@ -10,16 +10,13 @@ export default function Login({ redirectUri }: LoginProps) {
   const router = useRouter();
 
   const handleSetCookies = () => {
-    setCookie(null, "auth_token", "new_token", {
-      maxAge: 10000,
-      path: "/",
-    });
+    setCookie("auth_token", "new_token", { maxAge: 10000, path: "/" });
     router.push(redirectUri);
   };
 
   return (
     <div>
-      <button onClick={handleSetCookies}>установить куки</button>
+      <button onClick={handleSetCookies}>Установить куки</button>
     </div>
   );
 }
