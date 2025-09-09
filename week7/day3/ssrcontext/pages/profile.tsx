@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
       redirect: {
         destination: `/login?redirectUri=${encodeURIComponent(
-          req.url || "profile"
+          req.url || "/profile"
         )}`,
         permanent: false,
       },
