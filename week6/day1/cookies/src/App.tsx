@@ -7,7 +7,7 @@ type CookieOptions = {
   expires?: string;
   "max-age"?: number;
   secure?: boolean;
-  samesite?: "strict" | "lax";
+  samesite?: "Strict" | "Lax" | "None";
 };
 
 const DATE = "Tue, 19 Jan 2038 03:14:07 GMT";
