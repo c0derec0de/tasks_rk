@@ -24,7 +24,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } catch (error) {
     console.log(error);
     return {
-      notFound: true,
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
     };
   }
   return {
