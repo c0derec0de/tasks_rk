@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { Logs } from "@/shared/types";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type ProfileProps = {
   authToken: string | null;
@@ -66,7 +67,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   };
 }
-
 export default function Profile({ authToken, userAgent, lang }: ProfileProps) {
   const [logs, setLogs] = useState<Logs[]>([]);
 
@@ -104,6 +104,13 @@ export default function Profile({ authToken, userAgent, lang }: ProfileProps) {
           </p>
         </div>
       ))}
+      <Image
+        src="https://images.unsplash.com/photo-1727893244929-117683f3b957?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Кот"
+        width={500}
+        height={300}
+        priority // чтоб некст не ругался
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const cspHeader = `
     script-src 'self' 'nonce-${nonce}';
-    img-src 'self' https://example.com/;
+    img-src 'self' https://images.unsplash.com/;
     style-src 'self' ;
 `;
   const contentSecurityPolicyHeaderValue = cspHeader
@@ -22,6 +22,9 @@ export function middleware(request: NextRequest) {
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
-
   return response;
 }
+
+export const config = {
+  matcher: "/api/logs",
+};
