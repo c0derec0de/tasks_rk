@@ -5,7 +5,6 @@ import { Logs } from "@/shared/types";
 
 type Data = {
   logs?: Logs[];
-  success: boolean;
   message?: string;
 };
 
@@ -14,47 +13,28 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method === "GET") {
-    try {
-      const logs = visitLogs.getAll();
-      return res.status(200).json({
-        logs,
-        success: true,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error with get req",
-      });
-    }
+    const logs = visitLogs.getAll();
+    return res.status(200).json({
+      logs,
+    });
   }
 
   if (req.method === "POST") {
-    try {
-      const { url, timestamp } = req.body;
+    const { url, timestamp } = req.body;
 
-      if (!url || !timestamp) {
-        return res.status(400).json({
-          success: false,
-          message: "url and timestamp not found",
-        });
-      }
-
-      const log = {
-        url,
-        timestamp,
-      };
-
-      visitLogs.add(log);
-      return res.status(200).json({
-        success: true,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error with post req",
+    if (!url || !timestamp) {
+      return res.status(400).json({
+        message: "url and timestamp not found",
       });
     }
+
+    const log = {
+      url,
+      timestamp,
+    };
+
+    visitLogs.add(log);
+    return res.status(200).json({});
   }
+  return res.status(405).json({ message: "Method Not Allowed" });
 }

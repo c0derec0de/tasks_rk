@@ -23,12 +23,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   } catch (error) {
     console.log(error);
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
   }
   return {
     props: {},
