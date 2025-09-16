@@ -2,18 +2,20 @@ import { GetServerSidePropsContext } from "next";
 import { Logs } from "@/shared/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Script from "next/script";
 
 type ProfileProps = {
   authToken: string | null;
   userAgent: string;
   lang: string;
   logs: Logs[];
+  nonce: string;
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
   const authToken = req.cookies["auth_token"];
-
+  const nonce = (req.headers["x-nonce"] as string) || "";
   if (!authToken) {
     return {
       redirect: {
@@ -64,10 +66,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       authToken,
       userAgent,
       lang,
+      nonce,
     },
   };
 }
-export default function Profile({ authToken, userAgent, lang }: ProfileProps) {
+export default function Profile({
+  authToken,
+  userAgent,
+  lang,
+  nonce,
+}: ProfileProps) {
   const [logs, setLogs] = useState<Logs[]>([]);
 
   const fetchLogs = async () => {
@@ -111,6 +119,9 @@ export default function Profile({ authToken, userAgent, lang }: ProfileProps) {
         height={300}
         priority // чтоб некст не ругался
       />
+
+      <Script id="script" nonce={nonce}>{`alert('Скрипт с nonce')`}</Script>
+      <Script id="script">{`alert('Скрипт без nonce')`}</Script>
     </div>
   );
 }
