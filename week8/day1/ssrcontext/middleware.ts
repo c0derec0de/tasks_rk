@@ -3,9 +3,9 @@ import { NextResponse, NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const cspHeader = `
-    script-src 'self' 'nonce-${nonce}';
+    script-src 'self' 'unsafe-eval' 'nonce-${nonce}';
     img-src 'self' https://images.unsplash.com/;
-    style-src 'self' ;
+    style-src 'self' 'unsafe-inline';
 `;
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, " ")
@@ -18,13 +18,10 @@ export function middleware(request: NextRequest) {
     contentSecurityPolicyHeaderValue
   );
   const response = NextResponse.next();
+  response.headers.set("x-nonce", nonce);
   response.headers.set(
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
   return response;
 }
-
-export const config = {
-  matcher: "/api/logs",
-};

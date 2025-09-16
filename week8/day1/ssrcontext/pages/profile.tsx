@@ -101,7 +101,7 @@ export default function Profile({
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div>
       <a>authToken: {authToken} </a>
       <a>userAgent: {userAgent} </a>
       <a>lang: {lang} </a>
@@ -120,8 +120,11 @@ export default function Profile({
         priority // чтоб некст не ругался
       />
 
-      <Script id="script" nonce={nonce}>{`alert('Скрипт с nonce')`}</Script>
-      <Script id="script">{`alert('Скрипт без nonce')`}</Script>
+      <Script
+        id="script"
+        nonce={nonce}
+        dangerouslySetInnerHTML={{ __html: `alert('Скрипт с nonce')` }}
+      ></Script>
     </div>
   );
 }
