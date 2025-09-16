@@ -1,0 +1,130 @@
+import { GetServerSidePropsContext } from "next";
+import { Logs } from "@/shared/types";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Script from "next/script";
+
+type ProfileProps = {
+  authToken: string | null;
+  userAgent: string;
+  lang: string;
+  logs: Logs[];
+  nonce: string;
+};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, res, query } = context;
+  const authToken = req.cookies["auth_token"];
+  const nonce = (req.headers["x-nonce"] as string) || "";
+  if (!authToken) {
+    return {
+      redirect: {
+        destination: `/login?redirectUri=${encodeURIComponent(
+          req.url || "/profile"
+        )}`,
+        permanent: false,
+      },
+    };
+  }
+
+  try {
+    const logs = {
+      url: context.resolvedUrl,
+      timestamp: new Date().toISOString(),
+    };
+    const response = await fetch("http://localhost:3000/api/logs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(logs),
+    });
+
+    if (!response.ok) {
+      return {
+        notFound: true,
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const userAgent = req.headers["user-agent"] || "unknown";
+
+  const lang = (query.lang as string) || "en";
+
+  res.setHeader("Set-Cookie", [`lang=${lang}; path=/; max-age=${100000}`]);
+
+  return {
+    props: {
+      authToken,
+      userAgent,
+      lang,
+      nonce,
+    },
+  };
+}
+export default function Profile({
+  authToken,
+  userAgent,
+  lang,
+  nonce,
+}: ProfileProps) {
+  const [logs, setLogs] = useState<Logs[]>([]);
+
+  const fetchLogs = async () => {
+    try {
+      const response = await fetch("/api/logs", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLogs(data.logs || []);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  return (
+    <div>
+      <a>authToken: {authToken} </a>
+      <a>userAgent: {userAgent} </a>
+      <a>lang: {lang} </a>
+      {logs.map((log, index) => (
+        <div key={index}>
+          <p>
+            {new Date(log.timestamp).toLocaleString()} - {log.url}
+          </p>
+        </div>
+      ))}
+      <Image
+        src="https://images.unsplash.com/photo-1727893244929-117683f3b957?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Кот"
+        width={500}
+        height={300}
+        priority // чтоб некст не ругался
+      />
+
+      <Script
+        id="script"
+        nonce={nonce}
+        dangerouslySetInnerHTML={{ __html: `alert('Скрипт с nonce')` }}
+      ></Script>
+    </div>
+  );
+}
