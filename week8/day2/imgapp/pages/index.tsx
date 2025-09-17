@@ -26,8 +26,8 @@ export default function Home() {
     <>
       <div>
         <picture>
-          <source srcSet={photoJapan.props.srcSet} media="(max-width: 768px)" />
-          <source srcSet={photoCity.props.srcSet} media="(max-width: 1024px)" />
+          <source srcSet={photoJapan.props.src} media="(max-width: 768px)" />
+          <source srcSet={photoCity.props.src} media="(max-width: 1024px)" />
           <img {...photoOcean.props} />
         </picture>
       </div>
