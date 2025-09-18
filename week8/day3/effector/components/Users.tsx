@@ -1,4 +1,4 @@
-import { $users } from "../model";
+import { $users } from "../shared/model";
 import { useList } from "effector-react";
 
 export const Users = () => {

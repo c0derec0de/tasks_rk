@@ -1,4 +1,4 @@
-import { createEffect, createStore } from "effector";
+import { createEffect, createStore, sample } from "effector";
 
 export type Post = {
   userId: number;
@@ -29,5 +29,12 @@ export const getUsersFx = createEffect(async () => {
   return response.json();
 });
 
-$posts.on(getPostsFx.doneData, (_, post) => post);
-$users.on(getUsersFx.doneData, (_, user) => user);
+sample({
+  clock: getPostsFx.doneData,
+  target: $posts,
+});
+
+sample({
+  clock: getUsersFx.doneData,
+  target: $users,
+});

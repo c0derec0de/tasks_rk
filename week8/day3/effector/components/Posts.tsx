@@ -1,4 +1,4 @@
-import { $posts } from "../model";
+import { $posts } from "../shared/model";
 import { useList } from "effector-react";
 
 export const Posts = () => {

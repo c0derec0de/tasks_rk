@@ -1,6 +1,6 @@
 import { Posts } from "@/components/Posts";
 import { Users } from "@/components/Users";
-import { getPostsFx, getUsersFx } from "@/model";
+import { getPostsFx, getUsersFx } from "@/shared/model";
 import { allSettled, fork, serialize, SerializedState } from "effector";
 import { Provider } from "effector-react";
 
@@ -15,6 +15,7 @@ export const getServerSideProps = async () => {
   await allSettled(getUsersFx, { scope });
 
   const values = serialize(scope);
+
   return {
     props: { values },
   };
